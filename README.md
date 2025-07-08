@@ -41,7 +41,17 @@ Código: Logger().registrar(...)
 Explicación:
 El patrón Singleton asegura que solo exista una única instancia del logger para todo el sistema. Esto permite registrar eventos (como cálculos de precio o toppings) en una lista compartida, accesible desde cualquier parte del código.
 
+```python
 
+def get_precio_total(self, obj):
+    base = ConoFactory.obtener_base(obj.variante)  # Factory
+    builder = ConoPersonalizadoBuilder(base)        # Builder
+    director = ConoDirector(builder)                # Director (parte del patrón Builder)
+    director.construir(obj.toppings, obj.tamanio_cono)
+    
+    Logger().registrar(f"Se calculó el precio del pedido {obj.id}")  # Singleton
+    return builder.obtener_precio()
+```
 
 # registro de datos en el administrador
 
